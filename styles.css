@@ -13,13 +13,21 @@ header {
     text-align: center;
 }
 
+nav {
+    display: flex;
+    justify-content: center;
+    background: #142855;
+    padding: 10px 0;
+}
+
 nav ul {
     list-style: none;
     padding: 0;
+    margin: 0;
+    display: flex;
 }
 
 nav ul li {
-    display: inline;
     margin: 0 15px;
 }
 
@@ -42,4 +50,45 @@ footer {
     padding: 10px;
     background: #1e3a8a;
     color: white;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    section {
+        margin: 10px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        font-size: 18px;
+        padding: 15px;
+    }
+
+    nav {
+        padding: 5px 0;
+    }
+
+    nav ul {
+        flex-direction: column;
+    }
+
+    section {
+        padding: 15px;
+    }
+
+    iframe {
+        width: 100%;
+        height: auto;
+    }
 }
