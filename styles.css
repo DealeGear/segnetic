@@ -33,9 +33,11 @@ header {
 }
 
 .logo {
-  font-size: 1.8rem;
+  max-height: 50px;
+  /* Se necessário, ajuste também a largura */
 }
 
+/* Menu Toggle */
 .menu-toggle {
   background: none;
   border: none;
@@ -168,7 +170,7 @@ footer {
   }
   
   .logo {
-    font-size: 1.5rem;
+    max-height: 40px;
   }
   
   nav ul li {
