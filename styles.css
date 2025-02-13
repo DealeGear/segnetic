@@ -1,102 +1,177 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
 }
 
+/* Header e Navegação */
 header {
-    background: #1e3a8a;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    position: relative;
+  background-color: #1e3a8a;
+  color: #fff;
+  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-nav {
-    background: #142855;
-    display: flex;
-    justify-content: center;
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-}
-
-nav ul li {
-    margin: 0 15px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
+.logo {
+  font-size: 1.8rem;
 }
 
 .menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 30px;
-    color: white;
-    cursor: pointer;
-    position: absolute;
-    top: 20px;
-    right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #fff;
+  display: none;
+  cursor: pointer;
 }
 
-/* Responsividade */
+nav ul {
+  display: flex;
+  list-style: none;
+}
+
+nav ul li {
+  margin-left: 20px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 5px 0;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #ffd700;
+}
+
+/* Main e Seções */
+main {
+  padding-top: 80px; /* Espaço para o header fixo */
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+section {
+  background: #fff;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+section h2 {
+  margin-bottom: 10px;
+  color: #1e3a8a;
+}
+
+/* Vídeo responsivo */
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* Proporção 16:9 */
+  padding-top: 25px;
+  height: 0;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Botão de Download */
+.download-btn {
+  background-color: #1e3a8a;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.download-btn:hover {
+  background-color: #142855;
+}
+
+/* Footer */
+footer {
+  background: #1e3a8a;
+  color: #fff;
+  text-align: center;
+  padding: 15px 20px;
+}
+
+/* Responsividade para telas menores */
 @media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
-
-    nav {
-        display: none;
-        flex-direction: column;
-        text-align: center;
-        position: absolute;
-        width: 100%;
-        top: 60px;
-        left: 0;
-        background: #142855;
-        padding: 10px 0;
-    }
-
-    nav ul {
-        flex-direction: column;
-    }
-
-    nav ul li {
-        margin: 10px 0;
-    }
-
-    nav.show {
-        display: flex;
-    }
-
-    section {
-        margin: 10px;
-        padding: 20px;
-    }
+  .menu-toggle {
+    display: block;
+  }
+  
+  /* Menu mobile: inicialmente oculto à direita */
+  nav {
+    position: fixed;
+    top: 60px; /* Abaixo do header */
+    right: -100%;
+    width: 200px;
+    background-color: #1e3a8a;
+    height: calc(100% - 60px);
+    transition: right 0.3s ease;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+  }
+  
+  nav.show {
+    right: 0;
+  }
+  
+  nav ul {
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  nav ul li {
+    margin: 15px 0;
+  }
+  
+  main {
+    margin: 90px 10px 20px 10px;
+  }
 }
 
 @media (max-width: 480px) {
-    header {
-        font-size: 18px;
-        padding: 15px;
-    }
-
-    section {
-        padding: 15px;
-    }
-
-    iframe {
-        width: 100%;
-        height: auto;
-    }
+  .header-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+  }
+  
+  nav ul li {
+    margin-left: 0;
+  }
 }
