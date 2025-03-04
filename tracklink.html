@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Expander</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Desencurtador de Links</h2>
+    <input type="text" id="shortUrl" placeholder="Cole o link encurtado aqui...">
+    <button onclick="expandUrl()">Desencurtar</button>
+    <p id="result"></p>
+
+    <script>
+        async function expandUrl() {
+            let shortUrl = document.getElementById("shortUrl").value;
+            let resultText = document.getElementById("result");
+
+            if (!shortUrl.startsWith("http")) {
+                resultText.innerHTML = "Por favor, insira um link válido.";
+                return;
+            }
+
+            try {
+                let response = await fetch(shortUrl, { method: "HEAD", redirect: "follow" });
+                let finalUrl = response.url;
+
+                resultText.innerHTML = `🔗 Link original: <a href="${finalUrl}" target="_blank">${finalUrl}</a>`;
+            } catch (error) {
+                resultText.innerHTML = "Erro ao processar o link. Verifique se ele é válido.";
+            }
+        }
+    </script>
+
+</body>
+</html>
