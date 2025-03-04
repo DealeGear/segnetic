@@ -23,6 +23,31 @@
     .submenu a:hover {
       text-decoration: underline;
     }
+    
+    /* Estilização do desencurtador */
+    .url-container {
+      margin: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      max-width: 400px;
+    }
+    .url-container input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    .url-container button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .url-container button:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 <body>
@@ -39,7 +64,7 @@
         <li>
           <a href="#" id="ferramentas-toggle">Ferramentas ▼</a>
           <ul class="submenu" id="submenu">
-            <li><a href="tracklink.html">Desencurtador de LinkFerramenta 1</a></li>
+            <li><a href="tracklink.html">Desencurtador</a></li>
             <li><a href="ferramenta2.html">Ferramenta 2</a></li>
             <li><a href="ferramenta3.html">Ferramenta 3</a></li>
             <li><a href="ferramenta4.html">Ferramenta 4</a></li>
@@ -60,6 +85,14 @@
   <section id="ferramentas">
     <h2>Ferramentas</h2>
     <p>Descubra nossas ferramentas para proteção digital.</p>
+  </section>
+
+  <!-- Desencurtador de Link -->
+  <section class="url-container">
+    <h3>Desencurtador de Link</h3>
+    <input type="text" id="shortUrl" placeholder="Cole aqui o link encurtado">
+    <button onclick="expandUrl()">Desencurtar</button>
+    <p id="result"></p>
   </section>
 
   <section id="dicas">
@@ -97,11 +130,37 @@
 </footer>
 
 <script>
+  // Expansão do menu Ferramentas
   document.getElementById("ferramentas-toggle").addEventListener("click", function(event) {
     event.preventDefault();
     let submenu = document.getElementById("submenu");
     submenu.style.display = submenu.style.display === "block" ? "none" : "block";
   });
+
+  // Desencurtador de links com proxy para evitar bloqueios
+  async function expandUrl() {
+    let shortUrl = document.getElementById("shortUrl").value;
+    let resultText = document.getElementById("result");
+
+    if (!shortUrl.startsWith("http")) {
+      resultText.innerHTML = "Por favor, insira um link válido.";
+      return;
+    }
+
+    try {
+      // Proxy para evitar bloqueios CORS
+      let proxyUrl = "https://api.allorigins.win/get?url=" + encodeURIComponent(shortUrl);
+      let response = await fetch(proxyUrl);
+      let data = await response.json();
+
+      // Obtém a URL real a partir do redirecionamento
+      let finalUrl = data.contents.match(/https?:\/\/[^"]+/)[0] || shortUrl;
+
+      resultText.innerHTML = `🔗 Link original: <a href="${finalUrl}" target="_blank">${finalUrl}</a>`;
+    } catch (error) {
+      resultText.innerHTML = "Erro ao processar o link. Verifique se ele é válido.";
+    }
+  }
 </script>
 
 </body>
