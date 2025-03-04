@@ -45,35 +45,23 @@
       let resultText = document.getElementById("result");
 
       if (!shortUrl.startsWith("http")) {
-        resultText.innerHTML = "Por favor, insira um link válido.";
+        resultText.innerHTML = "❌ Insira um link válido.";
         return;
       }
 
       try {
-        // Cria um iframe oculto para carregar a URL
-        let iframe = document.createElement("iframe");
-        iframe.style.display = "none";
-        document.body.appendChild(iframe);
+        const response = await fetch(shortUrl, { method: "HEAD", redirect: "follow" });
+        let realUrl = response.url;
 
-        // Define a URL e aguarda um pequeno tempo antes de interromper o carregamento
-        iframe.src = shortUrl;
-        setTimeout(() => {
-          let realUrl = iframe.contentWindow.location.href;
-          
-          // Remove o iframe da página
-          document.body.removeChild(iframe);
-
-          // Exibe o resultado na tela
-          resultText.innerHTML = `
-            <p>🔗 <strong>Este é o link de destino:</strong> <a href="${realUrl}" target="_blank">${realUrl}</a></p>
-            <p style="color: red;">⛔ Carregamento da página interrompido</p>
-          `;
-        }, 2000); // Tempo suficiente para capturar a URL real antes de interromper
+        resultText.innerHTML = `
+          <p>🔗 <strong>Este é o link de destino:</strong> <a href="${realUrl}" target="_blank">${realUrl}</a></p>
+          <p style="color: red;">⛔ Carregamento da página interrompido</p>
+        `;
       } catch (error) {
-        resultText.innerHTML = "Erro ao processar o link. Verifique se ele é válido.";
+        resultText.innerHTML = "❌ Erro ao processar o link. Verifique se ele é válido.";
       }
     }
   </script>
-<h2>Versão Beta 1.0 04/03/2025</h2>
+<h2>Versão beta 1.1 04/03/2025</h2>
 </body>
 </html>
