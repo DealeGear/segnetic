@@ -5,18 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Segnetic - Segurança Cibernética</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Estilização do menu expansível */
+    .submenu {
+      display: none;
+      list-style: none;
+      padding-left: 20px;
+    }
+    .submenu li {
+      margin: 5px 0;
+    }
+    .submenu a {
+      text-decoration: none;
+      color: #007BFF;
+      font-weight: bold;
+    }
+    .submenu a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
- <header>
+
+<header>
   <div class="header-container">
     <a href="index.html">
-  <img src="img/SEGNETIC.jpg" alt="Segnetic Logo" class="logo">
-</a>
+      <img src="img/SEGNETIC.jpg" alt="Segnetic Logo" class="logo">
+    </a>
        
     <button class="menu-toggle" id="menu-toggle">&#9776;</button>
     <nav id="nav-menu">
       <ul>
-        <li><a href="index.html#ferramentas">Ferramentas</a></li>
+        <li>
+          <a href="#" id="ferramentas-toggle">Ferramentas ▼</a>
+          <ul class="submenu" id="submenu">
+            <li><a href="tracklink.html">Desencurtador de LinkFerramenta 1</a></li>
+            <li><a href="ferramenta2.html">Ferramenta 2</a></li>
+            <li><a href="ferramenta3.html">Ferramenta 3</a></li>
+            <li><a href="ferramenta4.html">Ferramenta 4</a></li>
+            <li><a href="ferramenta5.html">Ferramenta 5</a></li>
+          </ul>
+        </li>
         <li><a href="dicas_seguranca.html">Dicas de Segurança</a></li>
         <li><a href="index.html#blog">Blog</a></li>
         <li><a href="index.html#playlist">Playlist YouTube</a></li>
@@ -27,50 +56,53 @@
   </div>
 </header>
 
+<main>
+  <section id="ferramentas">
+    <h2>Ferramentas</h2>
+    <p>Descubra nossas ferramentas para proteção digital.</p>
+  </section>
 
+  <section id="dicas">
+    <h2>Dicas de Segurança</h2>
+    <p>Mantenha-se seguro com nossas dicas especializadas.</p>
+  </section>
+
+  <section id="blog">
+    <h2>Blog</h2>
+    <p>Leia artigos sobre defesa cibernética e prevenção de golpes.</p>
+  </section>
+
+  <section id="playlist">
+    <h2>Playlist YouTube</h2>
+    <p>Confira vídeos educativos sobre segurança digital.</p>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
     </div>
-  </header>
-  
-  <main>
-    <section id="ferramentas">
-      <h2>Ferramentas</h2>
-      <p>Descubra nossas ferramentas para proteção digital.</p>
-    </section>
-  
-    <section id="dicas">
-      <h2>Dicas de Segurança</h2>
-      <p>Mantenha-se seguro com nossas dicas especializadas.</p>
-    </section>
-  
-    <section id="blog">
-      <h2>Blog</h2>
-      <p>Leia artigos sobre defesa cibernética e prevenção de golpes.</p>
-    </section>
-  
-    <section id="playlist">
-      <h2>Playlist YouTube</h2>
-      <p>Confira vídeos educativos sobre segurança digital.</p>
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
-      </div>
-    </section>
-  
-    <section id="app">
-      <h2>App de Segurança</h2>
-      <p>Baixe nosso aplicativo para proteção avançada.</p>
-      <button class="download-btn">Baixar App</button>
-    </section>
-  
-    <section id="gerenciamento">
-      <h2>Gerenciamento</h2>
-      <p>Controle e monitore sua segurança online.</p>
-    </section>
-  </main>
-  
-  <footer>
-    <p>&copy; 2025 Segnetic - Protegendo seu mundo digital</p>
-  </footer>
-  
-  <script src="script.js"></script>
+  </section>
+
+  <section id="app">
+    <h2>App de Segurança</h2>
+    <p>Baixe nosso aplicativo para proteção avançada.</p>
+    <button class="download-btn">Baixar App</button>
+  </section>
+
+  <section id="gerenciamento">
+    <h2>Gerenciamento</h2>
+    <p>Controle e monitore sua segurança online.</p>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2025 Segnetic - Protegendo seu mundo digital</p>
+</footer>
+
+<script>
+  document.getElementById("ferramentas-toggle").addEventListener("click", function(event) {
+    event.preventDefault();
+    let submenu = document.getElementById("submenu");
+    submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+  });
+</script>
+
 </body>
 </html>
