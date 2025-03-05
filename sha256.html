@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obter Hash de Arquivo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .file-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fafafa;
+        }
+        .hash-output {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            word-wrap: break-word;
+            font-family: monospace;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Obter Hash de Arquivo</h1>
+    <input type="file" id="fileInput" class="file-input">
+    <button id="hashButton">Calcular Hash</button>
+    <div class="hash-output" id="hashOutput">O hash será exibido aqui...</div>
+</div>
+
+<script>
+    document.getElementById('hashButton').addEventListener('click', async function () {
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+        
+        if (!file) {
+            alert('Por favor, selecione um arquivo primeiro.');
+            return;
+        }
+
+        // Usando o FileReader para ler o arquivo
+        const reader = new FileReader();
+        
+        reader.onload = async function (event) {
+            const arrayBuffer = event.target.result;
+            const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer)); // Convertendo o ArrayBuffer para um array de bytes
+            const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join(''); // Convertendo para uma string hexadecimal
+            document.getElementById('hashOutput').textContent = hashHex;
+        };
+
+        reader.onerror = function () {
+            alert('Erro ao ler o arquivo.');
+        };
+
+        reader.readAsArrayBuffer(file); // Lê o arquivo como um ArrayBuffer
+    });
+</script>
+
+</body>
+</html>
