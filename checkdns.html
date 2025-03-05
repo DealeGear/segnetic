@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificar Domínio de E-mail</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    p {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .result {
+      color: #28a745;
+    }
+
+    .error {
+      color: #dc3545;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Verificar Domínio de E-mail</h1>
+    <input type="text" id="email" placeholder="Digite o e-mail">
+    <button onclick="checkMXRecord()">Verificar</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    async function checkMXRecord() {
+      const email = document.getElementById("email").value;
+      const resultText = document.getElementById("result");
+
+      if (!email) {
+        resultText.textContent = "Por favor, insira um endereço de e-mail.";
+        resultText.classList.remove("result");
+        resultText.classList.add("error");
+        return;
+      }
+
+      // Extrair o domínio do e-mail
+      const domain = email.split('@')[1];
+      
+      if (!domain) {
+        resultText.textContent = "O e-mail inserido é inválido.";
+        resultText.classList.remove("result");
+        resultText.classList.add("error");
+        return;
+      }
+
+      // API para consulta DNS (substitua com uma API que você escolher)
+      try {
+        const response = await fetch(`https://dns.google/resolve?name=${domain}&type=MX`);
+        const data = await response.json();
+
+        if (data.Status === 0 && data.Answer) {
+          resultText.textContent = `O domínio ${domain} possui registros MX. Provavelmente, é de uma empresa!`;
+          resultText.classList.remove("error");
+          resultText.classList.add("result");
+        } else {
+          resultText.textContent = `O domínio ${domain} não possui registros MX.`;
+          resultText.classList.remove("result");
+          resultText.classList.add("error");
+        }
+      } catch (error) {
+        resultText.textContent = "Erro ao verificar o domínio. Tente novamente.";
+        resultText.classList.remove("result");
+        resultText.classList.add("error");
+      }
+    }
+  </script>
+
+</body>
+</html>
