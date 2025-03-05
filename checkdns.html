@@ -99,11 +99,17 @@
         return;
       }
 
-      // API para consulta DNS (substitua com uma API que você escolher)
+      // Aqui vamos usar uma API para fazer a consulta DNS
       try {
-        const response = await fetch(`https://dns.google/resolve?name=${domain}&type=MX`);
+        const response = await fetch(`https://dns.google/resolve?name=${domain}&type=MX`, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
         const data = await response.json();
 
+        // Verifica se a consulta foi bem-sucedida
         if (data.Status === 0 && data.Answer) {
           resultText.textContent = `O domínio ${domain} possui registros MX. Provavelmente, é de uma empresa!`;
           resultText.classList.remove("error");
