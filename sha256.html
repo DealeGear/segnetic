@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obter Hash de Arquivo</title>
+    <title>Obter Hash de Arquivo ou Texto</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,7 +25,7 @@
             text-align: center;
             color: #333;
         }
-        .file-input {
+        .file-input, .text-input {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -53,43 +53,102 @@
         button:hover {
             background-color: #45a049;
         }
+        .switch-option {
+            margin-top: 15px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Obter Hash de Arquivo</h1>
-    <input type="file" id="fileInput" class="file-input">
+    <h1>Obter Hash de Arquivo ou Texto</h1>
+
+    <!-- Seção para entrada de arquivo -->
+    <div id="fileSection">
+        <input type="file" id="fileInput" class="file-input">
+    </div>
+
+    <!-- Seção para entrada de texto -->
+    <div id="textSection" style="display:none;">
+        <textarea id="textInput" class="text-input" rows="5" placeholder="Digite o texto aqui..."></textarea>
+    </div>
+
+    <!-- Botão para calcular o hash -->
     <button id="hashButton">Calcular Hash</button>
+
+    <!-- Exibição do hash calculado -->
     <div class="hash-output" id="hashOutput">O hash será exibido aqui...</div>
+
+    <!-- Switch entre arquivo e texto -->
+    <div class="switch-option">
+        <label>
+            <input type="radio" name="option" id="fileOption" checked> Arquivo
+        </label>
+        <label>
+            <input type="radio" name="option" id="textOption"> Texto
+        </label>
+    </div>
 </div>
 
 <script>
     document.getElementById('hashButton').addEventListener('click', async function () {
         const fileInput = document.getElementById('fileInput');
-        const file = fileInput.files[0];
-        
-        if (!file) {
-            alert('Por favor, selecione um arquivo primeiro.');
-            return;
-        }
+        const textInput = document.getElementById('textInput');
+        const fileOption = document.getElementById('fileOption').checked;
+        const textOption = document.getElementById('textOption').checked;
 
-        // Usando o FileReader para ler o arquivo
-        const reader = new FileReader();
-        
-        reader.onload = async function (event) {
-            const arrayBuffer = event.target.result;
-            const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
+        if (fileOption) {
+            // Quando a opção selecionada for "Arquivo"
+            const file = fileInput.files[0];
+            if (!file) {
+                alert('Por favor, selecione um arquivo primeiro.');
+                return;
+            }
+
+            // Usando o FileReader para ler o arquivo
+            const reader = new FileReader();
+            
+            reader.onload = async function (event) {
+                const arrayBuffer = event.target.result;
+                const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
+                const hashArray = Array.from(new Uint8Array(hashBuffer)); // Convertendo o ArrayBuffer para um array de bytes
+                const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join(''); // Convertendo para uma string hexadecimal
+                document.getElementById('hashOutput').textContent = hashHex;
+            };
+
+            reader.onerror = function () {
+                alert('Erro ao ler o arquivo.');
+            };
+
+            reader.readAsArrayBuffer(file); // Lê o arquivo como um ArrayBuffer
+        } else if (textOption) {
+            // Quando a opção selecionada for "Texto"
+            const text = textInput.value;
+            if (!text) {
+                alert('Por favor, insira algum texto.');
+                return;
+            }
+
+            // Convertendo o texto para um ArrayBuffer
+            const encoder = new TextEncoder();
+            const data = encoder.encode(text);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
             const hashArray = Array.from(new Uint8Array(hashBuffer)); // Convertendo o ArrayBuffer para um array de bytes
             const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join(''); // Convertendo para uma string hexadecimal
             document.getElementById('hashOutput').textContent = hashHex;
-        };
+        }
+    });
 
-        reader.onerror = function () {
-            alert('Erro ao ler o arquivo.');
-        };
+    // Alterando a visibilidade das seções com base na opção selecionada
+    document.getElementById('fileOption').addEventListener('change', function () {
+        document.getElementById('fileSection').style.display = 'block';
+        document.getElementById('textSection').style.display = 'none';
+    });
 
-        reader.readAsArrayBuffer(file); // Lê o arquivo como um ArrayBuffer
+    document.getElementById('textOption').addEventListener('change', function () {
+        document.getElementById('fileSection').style.display = 'none';
+        document.getElementById('textSection').style.display = 'block';
     });
 </script>
 
