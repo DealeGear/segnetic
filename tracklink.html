@@ -5,56 +5,131 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Desencurtador de Links</title>
   <style>
-    .url-container {
-      margin: 20px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      max-width: 400px;
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
+
+    .container {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 480px;
+      padding: 30px;
+      text-align: center;
+    }
+
+    h3 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
     .url-container input {
       width: 100%;
-      padding: 8px;
-      margin-top: 5px;
+      padding: 12px;
+      margin-top: 12px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+      background-color: #fafafa;
+      transition: border-color 0.3s ease;
     }
+
+    .url-container input:focus {
+      border-color: #007BFF;
+      outline: none;
+    }
+
     .url-container button {
-      margin-top: 10px;
-      padding: 8px 12px;
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
       background-color: #007BFF;
       color: white;
       border: none;
+      border-radius: 6px;
+      font-size: 16px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
+
     .url-container button:hover {
       background-color: #0056b3;
     }
-    .back-button {
+
+    .result {
       margin-top: 20px;
-      padding: 10px;
-      background-color: #008CBA;
+      padding: 15px;
+      background-color: #f8f8f8;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      word-wrap: break-word;
+      color: #555;
+    }
+
+    .result a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .result a:hover {
+      text-decoration: underline;
+    }
+
+    .back-button {
+      margin-top: 30px;
+      padding: 12px;
+      background-color: #4CAF50;
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
       width: 100%;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
     }
+
     .back-button:hover {
-      background-color: #007B9A;
+      background-color: #45a049;
     }
+
+    .switch-option {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .switch-option label {
+      margin-right: 20px;
+    }
+
   </style>
 </head>
 <body>
 
-  <section class="url-container">
+  <div class="container">
     <h3>Desencurtador de Link</h3>
-    <input type="text" id="shortUrl" placeholder="Cole aqui o link encurtado">
-    <button onclick="expandUrl()">Desencurtar</button>
-    <p id="result"></p>
-  </section>
 
-  <!-- Botão Voltar para Segnetic -->
-  <a href="https://dealegear.github.io/segnetic/" target="_blank">
-    <button class="back-button">Voltar para Segnetic</button>
-  </a>
+    <div class="url-container">
+      <input type="text" id="shortUrl" placeholder="Cole aqui o link encurtado">
+      <button onclick="expandUrl()">Desencurtar</button>
+    </div>
+
+    <div id="result" class="result">O link será exibido aqui...</div>
+
+    <!-- Botão Voltar para Segnetic -->
+    <a href="https://dealegear.github.io/segnetic/" target="_blank">
+      <button class="back-button">Voltar para Segnetic</button>
+    </a>
+  </div>
 
   <script>
     async function expandUrl() {
