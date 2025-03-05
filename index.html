@@ -1,155 +1,166 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obter Hash de Arquivo ou Texto</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f9;
-        }
-        .container {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 400px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .file-input, .text-input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: #fafafa;
-        }
-        .hash-output {
-            margin-top: 15px;
-            padding: 10px;
-            background-color: #f8f8f8;
-            border: 1px solid #ddd;
-            word-wrap: break-word;
-            font-family: monospace;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .switch-option {
-            margin-top: 15px;
-            text-align: center;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Segnetic - Segurança Cibernética</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Estilização do menu expansível */
+    .submenu {
+      display: none;
+      list-style: none;
+      padding-left: 20px;
+    }
+    .submenu li {
+      margin: 5px 0;
+    }
+    .submenu a {
+      text-decoration: none;
+      color: #007BFF;
+      font-weight: bold;
+    }
+    .submenu a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Estilização do desencurtador */
+    .url-container {
+      margin: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      max-width: 400px;
+    }
+    .url-container input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    .url-container button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .url-container button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Obter Hash de Arquivo ou Texto</h1>
+<header>
+  <div class="header-container">
+    <a href="index.html">
+      <img src="img/SEGNETIC.jpg" alt="Segnetic Logo" class="logo">
+    </a>
+       
+    <button class="menu-toggle" id="menu-toggle">&#9776;</button>
+    <nav id="nav-menu">
+      <ul>
+        <li>
+          <a href="#" id="ferramentas-toggle">Ferramentas ▼</a>
+          <ul class="submenu" id="submenu">
+            <li><a href="tracklink.html">Desencurtador</a></li>
+            <li><a href="sha256.html">Hash SHA256</a></li>
+            <li><a href="ferramenta3.html">Ferramenta 3</a></li>
+            <li><a href="ferramenta4.html">Ferramenta 4</a></li>
+            <li><a href="ferramenta5.html">Ferramenta 5</a></li>
+          </ul>
+        </li>
+        <li><a href="dicas_seguranca.html">Dicas de Segurança</a></li>
+        <li><a href="index.html#blog">Blog</a></li>
+        <li><a href="index.html#playlist">Playlist YouTube</a></li>
+        <li><a href="index.html#app">App de Segurança</a></li>
+        <li><a href="index.html#gerenciamento">Gerenciamento</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-    <!-- Seção para entrada de arquivo -->
-    <div id="fileSection">
-        <input type="file" id="fileInput" class="file-input">
+<main>
+  <section id="ferramentas">
+    <h2>Ferramentas</h2>
+    <p>Descubra nossas ferramentas para proteção digital.</p>
+  </section>
+
+  <!-- Desencurtador de Link -->
+  <section class="url-container">
+    <h3>Desencurtador de Link</h3>
+    <input type="text" id="shortUrl" placeholder="Cole aqui o link encurtado">
+    <button onclick="expandUrl()">Desencurtar</button>
+    <p id="result"></p>
+  </section>
+
+  <section id="dicas">
+    <h2>Dicas de Segurança</h2>
+    <p>Mantenha-se seguro com nossas dicas especializadas.</p>
+  </section>
+
+  <section id="blog">
+    <h2>Blog</h2>
+    <p>Leia artigos sobre defesa cibernética e prevenção de golpes.</p>
+  </section>
+
+  <section id="playlist">
+    <h2>Playlist YouTube</h2>
+    <p>Confira vídeos educativos sobre segurança digital.</p>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
     </div>
+  </section>
 
-    <!-- Seção para entrada de texto -->
-    <div id="textSection" style="display:none;">
-        <textarea id="textInput" class="text-input" rows="5" placeholder="Digite o texto aqui..."></textarea>
-    </div>
+  <section id="app">
+    <h2>App de Segurança</h2>
+    <p>Baixe nosso aplicativo para proteção avançada.</p>
+    <button class="download-btn">Baixar App</button>
+  </section>
 
-    <!-- Botão para calcular o hash -->
-    <button id="hashButton">Calcular Hash</button>
+  <section id="gerenciamento">
+    <h2>Gerenciamento</h2>
+    <p>Controle e monitore sua segurança online.</p>
+  </section>
+</main>
 
-    <!-- Exibição do hash calculado -->
-    <div class="hash-output" id="hashOutput">O hash será exibido aqui...</div>
-
-    <!-- Switch entre arquivo e texto -->
-    <div class="switch-option">
-        <label>
-            <input type="radio" name="option" id="fileOption" checked> Arquivo
-        </label>
-        <label>
-            <input type="radio" name="option" id="textOption"> Texto
-        </label>
-    </div>
-</div>
+<footer>
+  <p>&copy; 2025 Segnetic - Protegendo seu mundo digital</p>
+</footer>
 
 <script>
-    document.getElementById('hashButton').addEventListener('click', async function () {
-        const fileInput = document.getElementById('fileInput');
-        const textInput = document.getElementById('textInput');
-        const fileOption = document.getElementById('fileOption').checked;
-        const textOption = document.getElementById('textOption').checked;
+  // Expansão do menu Ferramentas
+  document.getElementById("ferramentas-toggle").addEventListener("click", function(event) {
+    event.preventDefault();
+    let submenu = document.getElementById("submenu");
+    submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+  });
 
-        if (fileOption) {
-            // Quando a opção selecionada for "Arquivo"
-            const file = fileInput.files[0];
-            if (!file) {
-                alert('Por favor, selecione um arquivo primeiro.');
-                return;
-            }
+  // Desencurtador de links com proxy para evitar bloqueios
+  async function expandUrl() {
+    let shortUrl = document.getElementById("shortUrl").value;
+    let resultText = document.getElementById("result");
 
-            // Usando o FileReader para ler o arquivo
-            const reader = new FileReader();
-            
-            reader.onload = async function (event) {
-                const arrayBuffer = event.target.result;
-                const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
-                const hashArray = Array.from(new Uint8Array(hashBuffer)); // Convertendo o ArrayBuffer para um array de bytes
-                const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join(''); // Convertendo para uma string hexadecimal
-                document.getElementById('hashOutput').textContent = hashHex;
-            };
+    if (!shortUrl.startsWith("http")) {
+      resultText.innerHTML = "Por favor, insira um link válido.";
+      return;
+    }
 
-            reader.onerror = function () {
-                alert('Erro ao ler o arquivo.');
-            };
+    try {
+      // Proxy para evitar bloqueios CORS
+      let proxyUrl = "https://api.allorigins.win/get?url=" + encodeURIComponent(shortUrl);
+      let response = await fetch(proxyUrl);
+      let data = await response.json();
 
-            reader.readAsArrayBuffer(file); // Lê o arquivo como um ArrayBuffer
-        } else if (textOption) {
-            // Quando a opção selecionada for "Texto"
-            const text = textInput.value;
-            if (!text) {
-                alert('Por favor, insira algum texto.');
-                return;
-            }
+      // Obtém a URL real a partir do redirecionamento
+      let finalUrl = data.contents.match(/https?:\/\/[^"]+/)[0] || shortUrl;
 
-            // Convertendo o texto para um ArrayBuffer
-            const encoder = new TextEncoder();
-            const data = encoder.encode(text);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-            const hashArray = Array.from(new Uint8Array(hashBuffer)); // Convertendo o ArrayBuffer para um array de bytes
-            const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join(''); // Convertendo para uma string hexadecimal
-            document.getElementById('hashOutput').textContent = hashHex;
-        }
-    });
-
-    // Alterando a visibilidade das seções com base na opção selecionada
-    document.getElementById('fileOption').addEventListener('change', function () {
-        document.getElementById('fileSection').style.display = 'block';
-        document.getElementById('textSection').style.display = 'none';
-    });
-
-    document.getElementById('textOption').addEventListener('change', function () {
-        document.getElementById('fileSection').style.display = 'none';
-        document.getElementById('textSection').style.display = 'block';
-    });
+      resultText.innerHTML = `🔗 Link original: <a href="${finalUrl}" target="_blank">${finalUrl}</a>`;
+    } catch (error) {
+      resultText.innerHTML = "Erro ao processar o link. Verifique se ele é válido.";
+    }
+  }
 </script>
 
 </body>
