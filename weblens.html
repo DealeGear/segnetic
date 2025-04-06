@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpiderFoot Simplificado</title>
+    <title>WebLens - OSINT</title>
     <style>
         /* style.css */
         body {
@@ -109,7 +109,7 @@
             resultDiv.innerHTML = "Consultando WHOIS...";
 
             // Exemplo de API pública para WHOIS (note que você precisará de uma chave de API para produção)
-            fetch(`https://jsonwhoisapi.com/api/v1/whois?identifier=${domain}&apiKey=YOUR_API_KEY`)
+            fetch(`https://jsonwhoisapi.com/api/v1/whois?identifier=${domain}&apiKey=4K34bNKhMAGNfvPFmycPAg`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.error) {
